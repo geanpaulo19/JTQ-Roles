@@ -48,7 +48,6 @@ function transformJob(post) {
     responsibilities: splitLines(m.responsibilities),
     qualifications:   splitLines(m.qualifications),
     niceToHave:       splitLines(m.nice_to_have),
-    applyEmail:       m.apply_email       || 'joyce@jtqglobal.com',
     postedDate:       post.date,
     active:           m.active === 'Yes',
   };
@@ -229,7 +228,7 @@ function openModal(job) {
         <strong>Ready to apply?</strong>
         <p>Send your CV and a short introduction to get started.</p>
       </div>
-      <a href="mailto:${job.applyEmail}?subject=Application: ${encodeURIComponent(job.title)}" class="btn-apply" aria-label="Apply for ${job.title}">
+      <a href="https://jtq-global.com/job-application/?role=${encodeURIComponent(job.title)}" target="_blank" rel="noopener" class="btn-apply" aria-label="Apply for ${job.title}">
         Apply Now
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
