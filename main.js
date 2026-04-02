@@ -23,34 +23,34 @@ const formatDate = (iso) =>
 
 const daysAgo = (iso) => {
   const d = Math.floor((Date.now() - new Date(iso)) / 86_400_000);
-  if (d === 0) return 'Available now';
-  if (d === 1) return 'Available since yesterday';
-  if (d < 30)  return `Available for ${d} days`;
-  return `Available since ${formatDate(iso)}`;
+  if (d === 0) return 'Posted today';
+  if (d === 1) return 'Posted yesterday';
+  if (d < 30)  return `Posted ${d} days ago`;
+  return `Posted ${formatDate(iso)}`;
 };
 
 /* ── Transform WP REST response → job object ─── */
-function transformRepeater(obj) {
-  if (!obj || typeof obj !== 'object') return [];
-  return Object.values(obj).map(row => row.item).filter(Boolean);
+function splitLines(str) {
+  if (!str) return [];
+  return str.split('\n').map(s => s.trim()).filter(Boolean);
 }
 
 function transformJob(post) {
   const m = post.meta || {};
   return {
-    id:              post.id,
-    title:           post.title?.rendered || '',
-    department:      m.department       || '',
-    location:        m.location         || '',
-    workSetup:       m.work_setup       || '',
-    employmentType:  m.employment_type  || '',
-    shortDescription:m.short_description|| '',
-    responsibilities:transformRepeater(m.responsibilities),
-    qualifications:  transformRepeater(m.qualifications),
-    niceToHave:      transformRepeater(m.nice_to_have),
-    applyEmail:      m.apply_email      || 'joyce@jtqglobal.com',
-    postedDate:      post.date,
-    active:          m.active === 'Yes',
+    id:               post.id,
+    title:            post.title?.rendered || '',
+    department:       m.department        || '',
+    location:         m.location          || '',
+    workSetup:        m.work_setup        || '',
+    employmentType:   m.employment_type   || '',
+    shortDescription: m.short_description || '',
+    responsibilities: splitLines(m.responsibilities),
+    qualifications:   splitLines(m.qualifications),
+    niceToHave:       splitLines(m.nice_to_have),
+    applyEmail:       m.apply_email       || 'joyce@jtqglobal.com',
+    postedDate:       post.date,
+    active:           m.active === 'Yes',
   };
 }
 
@@ -123,7 +123,7 @@ function buildCard(job, index) {
     <p class="job-card__desc">${job.shortDescription}</p>
     <div class="job-card__footer">
       <span>${daysAgo(job.postedDate)}</span>
-      <span class="job-card__cta">Inquire about this role <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      <span class="job-card__cta">View & apply <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </div>`;
 
   const open = () => openModal(job);
@@ -205,32 +205,32 @@ function openModal(job) {
       <div class="modal__meta-item"><div class="modal__meta-label">Department</div><div class="modal__meta-value">${job.department}</div></div>
       <div class="modal__meta-item"><div class="modal__meta-label">Location</div><div class="modal__meta-value">${job.location}</div></div>
       <div class="modal__meta-item"><div class="modal__meta-label">Work Setup</div><div class="modal__meta-value">${job.workSetup}</div></div>
-      <div class="modal__meta-item"><div class="modal__meta-label">Available Since</div><div class="modal__meta-value">${formatDate(job.postedDate)}</div></div>
+      <div class="modal__meta-item"><div class="modal__meta-label">Date Posted</div><div class="modal__meta-value">${formatDate(job.postedDate)}</div></div>
     </div>
     <div class="modal__section">
-      <p class="modal__section-title">Role Overview</p>
+      <p class="modal__section-title">About the Role</p>
       <p class="modal__desc">${job.shortDescription}</p>
     </div>
     <div class="modal__section">
-      <p class="modal__section-title">What They'll Do For You</p>
+      <p class="modal__section-title">Responsibilities</p>
       <ul class="modal__list">${job.responsibilities.map(r => `<li>${r}</li>`).join('')}</ul>
     </div>
     <div class="modal__section">
-      <p class="modal__section-title">Skills & Experience</p>
+      <p class="modal__section-title">Requirements</p>
       <ul class="modal__list">${job.qualifications.map(q => `<li>${q}</li>`).join('')}</ul>
     </div>
     ${job.niceToHave?.length ? `
     <div class="modal__section">
-      <p class="modal__section-title">Bonus Capabilities</p>
+      <p class="modal__section-title">Nice to Have</p>
       <ul class="modal__list">${job.niceToHave.map(n => `<li>${n}</li>`).join('')}</ul>
     </div>` : ''}
     <div class="modal__apply">
       <div class="modal__apply-copy">
-        <strong>Interested in this role?</strong>
-        <p>Get in touch and we'll match the right person to your business.</p>
+        <strong>Ready to apply?</strong>
+        <p>Send your CV and a short introduction to get started.</p>
       </div>
-      <a href="mailto:${job.applyEmail}?subject=Enquiry: ${encodeURIComponent(job.title)}" class="btn-apply" aria-label="Inquire about ${job.title}">
-        Inquire Now
+      <a href="mailto:${job.applyEmail}?subject=Application: ${encodeURIComponent(job.title)}" class="btn-apply" aria-label="Apply for ${job.title}">
+        Apply Now
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>`;
@@ -264,8 +264,8 @@ function render(jobs) {
   const none = jobs.length === 0;
   emptyState.classList.toggle('is-visible', none);
   countEl.innerHTML = none
-    ? '<strong>0</strong> roles found'
-    : `<strong>${jobs.length}</strong> role${jobs.length !== 1 ? 's' : ''} available to hire`;
+    ? '<strong>0</strong> positions found'
+    : `<strong>${jobs.length}</strong> open position${jobs.length !== 1 ? 's' : ''}`;
   jobs.forEach((job, i) => jobsGrid.appendChild(buildCard(job, i)));
 }
 
@@ -282,9 +282,9 @@ function applyFilters() {
 function showError() {
   countEl.innerHTML = 'Could not load roles';
   emptyState.classList.add('is-visible');
-  emptyState.querySelector('h3').textContent = 'Unable to load roles';
+  emptyState.querySelector('h3').textContent = 'Unable to load positions';
   emptyState.querySelector('p').innerHTML =
-    'Please try refreshing the page, or <a href="mailto:joyce@jtqglobal.com" style="color:var(--c-teal);border-bottom:1px solid rgba(50,112,117,.3)">contact us directly.</a>';
+    'Please try refreshing the page, or <a href="mailto:joyce@jtqglobal.com" style="color:var(--c-teal);border-bottom:1px solid rgba(50,112,117,.3)">send us your CV directly.</a>';
 }
 
 /* ── Init ────────────────────────────────────── */
