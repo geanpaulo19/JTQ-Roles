@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Browse available roles at JTQ Global Support — dedicated remote staff ready to deploy for your business across Customer Support, Sales, Tech, and Operations."/>
-  <title>Available Roles — JTQ Global Support</title>
+  <meta name="description" content="Explore open positions at JTQ Global Support — join a growing team across Customer Support, Sales, Tech, and Operations."/>
+  <title>Careers — JTQ Global Support</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body class="page">
@@ -32,18 +32,18 @@
   <img class="fh-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1800&q=90&fit=crop&crop=center" style="object-position:center 35%" alt="" loading="eager"/>
   <div class="fh-overlay"></div>
   <div class="fh-content">
-    <div class="fh-eyebrow"><span class="fh-dot"></span>Available Now</div>
-    <h1 class="fh-title">Dedicated remote staff, <em>ready to deploy.</em></h1>
+    <div class="fh-eyebrow"><span class="fh-dot"></span>Now Hiring</div>
+    <h1 class="fh-title">Build your career <em>with us.</em></h1>
     <div class="fh-line"></div>
-    <p class="fh-sub">Browse our available roles below and find the right fit for your business.</p>
+    <p class="fh-sub">Explore our open positions and take the next step in your career with JTQ Global Support.</p>
     <div class="fh-stats">
       <div class="fh-stat-chip">
-        <div class="fh-stat-num" id="stat-roles">—<span>+</span></div>
-        <div class="fh-stat-label">Available roles</div>
+        <div class="fh-stat-num" id="stat-roles">—</div>
+        <div class="fh-stat-label">Open positions</div>
       </div>
       <div class="fh-stat-chip">
         <div class="fh-stat-num">201<span>+</span></div>
-        <div class="fh-stat-label">Staff deployed</div>
+        <div class="fh-stat-label">Team members</div>
       </div>
       <div class="fh-stat-chip">
         <div class="fh-stat-num">🇵🇭 🇦🇪</div>
@@ -55,11 +55,11 @@
 </section>
 
 <!-- FILTER BAR -->
-<div class="filters-section" id="open-roles" role="search" aria-label="Filter available roles">
+<div class="filters-section" id="open-roles" role="search" aria-label="Filter open positions">
   <div class="container filters-inner">
     <div class="search-wrap">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" id="search-input" class="search-input" placeholder="Search roles, departments, work setup…" aria-label="Search available roles"/>
+      <input type="search" id="search-input" class="search-input" placeholder="Search jobs, departments, work setup…" aria-label="Search open positions"/>
     </div>
     <select id="filter-dept" class="filter-select" aria-label="Filter by department">
       <option value="">All Departments</option>
@@ -86,10 +86,10 @@
   <div class="container">
     <div class="empty-state" id="empty-state" role="status">
       <div class="empty-state-icon">🔍</div>
-      <h3>No roles found</h3>
-      <p>Try adjusting your filters, or <a href="mailto:joyce@jtqglobal.com" style="color:var(--c-teal);border-bottom:1px solid rgba(50,112,117,.3)">contact us directly to discuss your needs.</a></p>
+      <h3>No positions found</h3>
+      <p>Try adjusting your filters, or <a href="mailto:joyce@jtqglobal.com" style="color:var(--c-teal);border-bottom:1px solid rgba(50,112,117,.3)">send us your CV and we'll be in touch.</a></p>
     </div>
-    <div class="jobs-grid" id="jobs-grid" aria-label="Available roles"></div>
+    <div class="jobs-grid" id="jobs-grid" aria-label="Open positions"></div>
   </div>
 </main>
 
@@ -98,7 +98,7 @@
   <div class="container footer-inner">
     <div class="footer-brand">
       <img src="images/logo.png" class="footer-logo-img" alt="JTQ Global Support" loading="lazy"/>
-      <p>Dedicated remote staff across sales, marketing, tech, customer service, and operations — ready to support your business.</p>
+      <p>Join a growing team supporting businesses across sales, marketing, tech, customer service, and operations.</p>
     </div>
     <div class="footer-col">
       <h4>Links</h4>
@@ -119,12 +119,12 @@
 </footer>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Role details" aria-hidden="true">
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Job details" aria-hidden="true">
   <div class="modal" id="modal">
     <div class="modal__header">
       <div class="modal__handle" aria-hidden="true"></div>
       <div class="modal__header-row">
-        <span class="modal__header-label">Role Details</span>
+        <span class="modal__header-label">Job Details</span>
         <button class="modal__close" aria-label="Close">&#x2715;</button>
       </div>
     </div>
@@ -132,7 +132,6 @@
   </div>
 </div>
 
-<!-- Scripts — jobs-data.js must load before main.js -->
 <script src="main.js"></script>
 
 </body>
